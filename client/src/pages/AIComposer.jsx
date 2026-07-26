@@ -287,8 +287,8 @@ const AIComposer = () => {
                           )
                         }
                         className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${active
-                            ? "border-red-500 bg-red-50 text-red-500"
-                            : "border-slate-200 bg-white text-slate-500 hover:border-red-300 hover:bg-red-50"
+                          ? "border-red-500 bg-red-50 text-red-500"
+                          : "border-slate-200 bg-white text-slate-500 hover:border-red-300 hover:bg-red-50"
                           }`}
                       >
                         <p.icon className="size-4" />

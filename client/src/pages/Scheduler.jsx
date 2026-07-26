@@ -41,7 +41,7 @@ const Scheduler = () => {
       <div className="flex gap-5">
 
         {/* Compose panel */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm h-fit w-[460px]">
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm h-fit w-115">
           <div className="border-b border-slate-200 px-6 py-4">
             <h2 className="text-xl text-slate-800">
               Compose Post
