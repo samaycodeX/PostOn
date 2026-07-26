@@ -35,7 +35,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     {
       name: "Scheduler",
       icon: CalendarDaysIcon,
-      path: "/schedule",
+      path: "/scheduler",
     },
     {
       name: "AI Composer",
