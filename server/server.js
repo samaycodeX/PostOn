@@ -2,6 +2,8 @@ import "dotenv/config";
 import express from 'express';
 import cors from "cors";
 import ConnectDB from "./src/config/db.js";
+import authRouter from "./src/routes/auth.route.js";
+import socialAuthRouter from "./src/routes/socialAuth.route.js";
 
 const app = express();
 
@@ -11,9 +13,13 @@ app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
+// Router
 app.get('/', (req, res) => {
     res.send('Server is Live!');
 });
+app.use("/api/auth", authRouter)
+app.use("/api/oauth", socialAuthRouter)
+
 //Global Error Handler
 app.use( (err, req, res , next) => {
     console.error(err);
