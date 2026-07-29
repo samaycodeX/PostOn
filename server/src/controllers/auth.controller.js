@@ -17,12 +17,12 @@ export const registerUser = async (req, res) => {
         const { name,email,password } = req.body;
 
         if(!name || !email || !password){
-            Response(res, 400, false, "Something Missing")
+            return Response(res, 400, false, "Something Missing")
         }
 
         const userExists = await User.findOne({email})
         if(userExists){
-            Response(res,400,false,"User Already Exists")
+            return Response(res,400,false,"User Already Exists")
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,10 +32,10 @@ export const registerUser = async (req, res) => {
         })
 
         if(user) res.status(201).json({_id : user._id, name : user.name, email : user.email, token : generateToken(user._id) })
-        else Response(res, 400, false, "Invalid Data")
+        else return Response(res, 400, false, "Invalid Data")
 
     } catch (error) {
-        Response(res, 500, false, "Server Error from Register")
+        return Response(res, 500, false, "Server Error from Register")
     }
 }
 
@@ -46,21 +46,21 @@ export const loginUser = async (req, res) => {
         const {email,password } = req.body;
 
         if(!email || !password){
-            Response(res, 400, false, "Something Missing")
+            return Response(res, 400, false, "Something Missing")
         }
 
         const user = await User.findOne({email})
         if(!user){
-            Response(res,400,false,"User Not Exist")
+            return Response(res,400,false,"User Not Exist")
         }
 
         const ComparePassword = await bcrypt.compare(password, user.password)
-        if(!ComparePassword) Response(res, 400, false, "Password not correct")
+        if(!ComparePassword) return Response(res, 400, false, "Password not correct")
 
         if(user && ComparePassword) res.status(201).json({_id : user._id, name : user.name, email : user.email, token : generateToken(user._id) })
-        else Response(res, 400, false, "Incorrect email or password.")
+        else return Response(res, 400, false, "Incorrect email or password.")
 
     } catch (error) {
-        Response(res, 500, false, "Server Error from Register")
+        return Response(res, 500, false, "Server Error from Register")
     }
 }

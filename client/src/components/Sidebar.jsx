@@ -1,4 +1,3 @@
-import React from "react";
 import {
   CalendarDaysIcon,
   LayoutDashboardIcon,
@@ -6,18 +5,16 @@ import {
   UsersIcon,
   Wand2Icon,
 } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
-  const { logout, user } = {
-    logout: () => {
-      window.location.href = "/";
-    },
-    user: {
-      name: "Samay Soni",
-      email: "samaysoni1209@gmail.com",
-    },
+  const navigate = useNavigate();
+  const user = {
+    name: "Samay Soni",
+    email: "samaysoni1209@gmail.com",
   };
+
+  const logout = () => navigate("/");
 
   const location = useLocation();
 
