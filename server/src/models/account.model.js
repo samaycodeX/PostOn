@@ -32,21 +32,21 @@ const accountSchema = new mongoose.Schema({
         type: String
     },
 
-    tokenExpiresAt:{
-        type : Date
+    tokenExpiresAt: {
+        type: Date
     },
 
-    status : {
-        type : String,
-        enum : [
+    status: {
+        type: String,
+        enum: [
             "connected", "disconnected"
         ],
-        default : "connected"
+        default: "connected"
     },
 
-    avatarUrl : {
-        type : String
+    avatarUrl: {
+        type: String
     }
-}, {timestamps : true})
+}, { timestamps: true })
 
 export const Account = mongoose.model("Account", accountSchema)

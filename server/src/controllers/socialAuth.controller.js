@@ -52,7 +52,7 @@ export const generateAuthUrl = async (req, res) => {
 
 
     } catch (error) {
-        Response(res, 500, false, error?.message || "Server Error")
+        return Response(res, 500, false, error?.message || "Server Error")
     }
 }
 
@@ -102,6 +102,6 @@ export const syncAccounts = async (req, res) => {
         res.json(syncedAccounts)
 
     } catch (error) {
-        Response(res, 500, false, error?.message || "Server Error")
+        return Response(res, 500, false, error?.message || "Server Error")
     }
 }
