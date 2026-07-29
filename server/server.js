@@ -6,6 +6,8 @@ import authRouter from "./src/routes/auth.route.js";
 import socialAuthRouter from "./src/routes/socialAuth.route.js";
 import accountRouter from "./src/routes/account.route.js";
 import postRouter from "./src/routes/post.route.js";
+import activityRouter from "./src/routes/activity.route.js";
+import { initScheduler } from "./src/services/scheduler.service.js";
 
 const app = express();
 
@@ -23,10 +25,13 @@ app.use("/api/auth", authRouter)
 app.use("/api/oauth", socialAuthRouter)
 app.use("/api/accounts", accountRouter)
 app.use("/api/posts", postRouter)
+app.use("/api/activity", activityRouter)
+
+initScheduler()
 
 
 //Global Error Handler
-app.use( (err, req, res , next) => {
+app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).send(err?.message)
 })
