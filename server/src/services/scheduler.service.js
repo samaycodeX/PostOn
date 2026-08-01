@@ -8,64 +8,64 @@ export const initScheduler = () => {
     cron.schedule("* * * * *", async () => {
         try {
             const now = new Date();
-            const postsToPublish = await Post.find({status : "scheduled", scheduledFor : {$lte : now}})
+            const postsToPublish = await Post.find({ status: "scheduled", scheduledFor: { $lte: now } })
 
-            for(const post of postsToPublish){
+            for (const post of postsToPublish) {
                 try {
                     const accounts = await Account.find({
-                        user : post.user,
-                        platform : {$in : post.platforms},
-                        status : "connected",
-                        zernioAccountId : {$exists : true}
+                        user: post.user,
+                        platform: { $in: post.platforms },
+                        status: "connected",
+                        zernioAccountId: { $exists: true }
                     })
 
-                    if(accounts.length === 0 ){
+                    if (accounts.length === 0) {
                         console.log(`No connected zernio accounts found for post ${post._id}`);
                         continue;
                     }
 
                     const zernioPlatforms = accounts.map((acc) => ({
-                        tform : acc.platform,
-                        accountId :  acc.zernioAccountId
+                        platform: acc.platform,
+                        accountId: acc.zernioAccountId
                     }))
 
                     const payload = {
-                        content : post.content,
-                        publishNow : true,
-                        ...(post.mediaUrl ? {mediaItems : [{type : post.mediaType || "image", url : post.mediaUrl}]} : {}),
-                        platforms : zernioPlatforms,
+                        content: post.content,
+                        publishNow: true,
+                        ...(post.mediaUrl ? { mediaItems: [{ type: post.mediaType || "image", url: post.mediaUrl }] } : {}),
+                        platforms: zernioPlatforms,
                     }
 
                     console.log(`Publishing post ${post._id} to Zernio with media: ${post.mediaUrl || "none"}`)
 
                     const response = await zernio.posts.createPost({
-                        body : payload
+                        body: payload
                     })
 
                     const publishedPost = response.data || response.data.post;
-                    if(!publishedPost){
+                    if (!publishedPost) {
                         throw new Error("Failed to get post object from Zernio response");
                     }
 
-                    console.log(`Zernio post created : ${publishedPost._id  || publishedPost.id}`);
+                    console.log(`Zernio post created : ${publishedPost._id || publishedPost.id}`);
 
                     post.status = "published"
-                    await post.save;
+                    await post.save();
 
                     await ActivityLog.create({
-                        user : post.user,
-                        actionType : "POST_PUBLISHED",
-                        description : `Published post to ${accounts.map((a) => a.platform).join(", ")}`,
-                        relatedPost : post._id,
+                        user: post.user,
+                        actionType: "POST_PUBLISHED",
+                        description: `Published post to ${accounts.map((a) => a.platform).join(", ")}`,
+                        relatedPost: post._id,
                     })
-                    
+
                 } catch (error) {
                     console.error(`Failed to publish post ${post._id} :`, error?.response?.data || error?.message);
                     post.status = "failed";
                     await post.save()
                 }
             }
-            if(postsToPublish.length > 0){
+            if (postsToPublish.length > 0) {
                 console.log(`Evaluated ${postsToPublish.length} posts at ${now.toISOString()}`);
             }
         } catch (error) {

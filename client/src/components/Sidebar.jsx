@@ -14,7 +14,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth)
-  console.log(user);
   
   const handleLogout = () => {
     localStorage.removeItem("token");

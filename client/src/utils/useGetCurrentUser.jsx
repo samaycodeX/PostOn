@@ -14,11 +14,7 @@ const useGetCurrentUser = () => {
                 return;
             }
             try {
-                const res = await api.get("/api/auth/me", {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const res = await api.get("/api/auth/me");
                 if (res.data.user) {
                     dispatch(setUser(res.data.user))
                 }

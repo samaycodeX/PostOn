@@ -16,7 +16,7 @@ export const getAccounts = async (req, res) => {
 //Add account
 //POST /api/addAccount
 export const addAccount = async (req, res) => {
-    try {
+    try { 
         const { platform, handle, avatarutl } = req.body;
 
         const account = await Account.create({
