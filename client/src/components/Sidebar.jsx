@@ -5,7 +5,7 @@ import {
   UsersIcon,
   Wand2Icon,
 } from "lucide-react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { setUser } from "../redux/features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../redux/store";
@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth)
-  
+
   const handleLogout = () => {
     localStorage.removeItem("token");
 
@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       path: "/accounts",
     },
     {
-      name: "Scheduler",
+      name: "PostOn",
       icon: CalendarDaysIcon,
       path: "/scheduler",
     },
@@ -55,10 +55,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     >
       {/* Logo */}
       <div className="p-6 pb-4">
-        <div className="flex items-center gap-2 text-xl font-semibold tracking-tight text-slate-800">
-          <img src="/logo.svg" alt="logo" className="size-6" />
-          Scheduler
-        </div>
+        <Link to={'/'}>
+          <div className="flex items-center gap-2 text-xl font-semibold tracking-tight text-slate-800">
+            <img src="/logo.svg" alt="logo" className="size-6" />
+            PostOn
+          </div></Link>
       </div>
 
       {/* Menu Label */}
