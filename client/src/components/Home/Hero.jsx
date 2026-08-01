@@ -19,13 +19,13 @@ export default function Hero() {
 
                 {/* Headline */}
                 <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl xl:text-8xl text-slate-900">
-                    Schedule smarter.
+                    Post smarter.
                     <br />
                     <span className="text-red-400 italic">Grow faster.</span>
                 </h1>
 
                 {/* Subheadline */}
-                <p className="mt-7 text-gray-500 max-w-2xl mx-auto">Scheduler lets you create, schedule, and auto-engage across all your social platforms — powered by AI that writes your captions and replies for you.</p>
+                <p className="mt-7 text-gray-500 max-w-2xl mx-auto">PostOn lets you create, schedule, and auto-engage across all your social platforms — powered by AI that writes your captions and replies for you.</p>
 
                 {/* CTAs */}
                 <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
