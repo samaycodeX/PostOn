@@ -6,10 +6,10 @@ import Dashboard from "./pages/Dashboard";
 import Accounts from "./pages/Accounts";
 import Scheduler from "./pages/Scheduler";
 import AIComposer from "./pages/AIComposer";
+import {Toaster} from "react-hot-toast"
+import useGetCurrentUser from "./utils/useGetCurrentUser";
 
-export default function App() {
-
-    const appRouter = createBrowserRouter([
+const appRouter = createBrowserRouter([
         { path: "/", element: <Home /> },
         { path: "/login", element: <Login /> },
         {
@@ -22,9 +22,13 @@ export default function App() {
             ]
         },
 
-    ])
+]);
+
+export default function App() {
+    useGetCurrentUser()
     return (
         <div>
+            <Toaster position = "top-right"/>
             <RouterProvider router={appRouter} />
         </div>
     );

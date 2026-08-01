@@ -1,6 +1,6 @@
 import { ActivityIcon, CheckCheckIcon, ClockIcon, SendIcon, Share2Icon, TrendingUpIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import { dummyAccountsData, dummyActivityData, dummyPostsData } from '../assets/assets.jsx'
+import api from "../api/api.js";
 
 const Dashboard = () => {
 
@@ -10,17 +10,18 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const posts = dummyPostsData;
+        const [postRes, accountsRes, activityRes] = await Promise.all([api.get("/api/post"), api.get("/api/accounts"), api.get("/api/activity")])
+        const posts = postRes.data;
 
         setStats({
           scheduled: posts.filter((p) => p.status === "scheduled").length,
           published: posts.filter((p) => p.status === "published").length,
-          connectedAccounts: dummyAccountsData.filter(
+          connectedAccounts: accountsRes.data.filter(
             (a) => a.status === "connected"
           ).length,
         });
 
-        setActivities(dummyActivityData);
+        setActivities(accountsRes.data);
       } catch (error) {
         console.log(error);
       }

@@ -12,7 +12,7 @@ export const getAccounts = async (req, res) => {
         return Response(res, 500, false)
     }
 }
-
+ 
 //Add account
 //POST /api/addAccount
 export const addAccount = async (req, res) => {

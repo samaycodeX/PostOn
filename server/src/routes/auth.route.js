@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { loginUser, registerUser } from "../controllers/auth.controller.js";
+import { getCurrentUser, loginUser, registerUser } from "../controllers/auth.controller.js";
+import { protect } from "../middlewares/auth.middleware.js";
 
 const authRouter = Router();
 
 authRouter.post('/register', registerUser)
 authRouter.post('/login', loginUser)
+authRouter.get('/me', protect, getCurrentUser)
 
 export default authRouter

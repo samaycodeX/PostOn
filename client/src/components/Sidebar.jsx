@@ -6,15 +6,23 @@ import {
   Wand2Icon,
 } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { setUser } from "../redux/features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { store } from "../redux/store";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const navigate = useNavigate();
-  const user = {
-    name: "Samay Soni",
-    email: "samaysoni1209@gmail.com",
-  };
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth)
+  console.log(user);
+  
+  const handleLogout = () => {
+    localStorage.removeItem("token");
 
-  const logout = () => navigate("/");
+    dispatch(setUser(null));
+
+    navigate("/");
+  };
 
   const location = useLocation();
 
@@ -43,9 +51,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col h-full transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col h-full transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
     >
       {/* Logo */}
       <div className="p-6 pb-4">
@@ -73,16 +80,14 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               to={item.path}
               end={item.path === "/dashboard"}
               onClick={() => setIsOpen(false)}
-              className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 text-sm transition-all duration-150 ${
-                isActive
-                  ? "border-red-100 bg-red-50 text-red-600"
-                  : "border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-700"
-              }`}
+              className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 text-sm transition-all duration-150 ${isActive
+                ? "border-red-100 bg-red-50 text-red-600"
+                : "border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+                }`}
             >
               <item.icon
-                className={`size-5 shrink-0 ${
-                  isActive ? "text-red-500" : "text-slate-500"
-                }`}
+                className={`size-5 shrink-0 ${isActive ? "text-red-500" : "text-slate-500"
+                  }`}
               />
 
               <span>{item.name}</span>
@@ -116,7 +121,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
         {/* Logout Button */}
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-all duration-200 hover:bg-red-50 hover:text-red-600"
         >
           <LogOut className="size-4" />
