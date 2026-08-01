@@ -4,6 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 import { cloudinary } from "../config/cloudinary.js"
 import { Generation } from "../models/generation.model.js"
 import { Post } from "../models/post.model.js";
+import getDataUri from "../services/dataUri.js";
 
 
 //Generate Post
@@ -12,15 +13,21 @@ export const generatePost = async (req, res) => {
     try {
         const { prompt, tone, generateImage } = req.body;
 
+        if (!prompt?.trim()) {
+            return Response(res, 400, false, "Prompt is required");
+        }
+
         const apikey = process.env.GEMINI_API_KEY;
         if (!apikey) {
             return Response(res, 400, false, "Gemini API key is missing")
         }
 
-        const ai = new GoogleGenAI({ apikey });
+        const ai = new GoogleGenAI({
+            apiKey: process.env.GEMINI_API_KEY
+        });
 
         // Generate Text
-        const textResponse = await ai.generateContent({
+        const textResponse = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: `Generate a socil media post based on this prompt : "${prompt}".
              Tone : ${tone}.
@@ -115,7 +122,16 @@ export const getPosts = async (req, res) => {
     try {
         const posts = await Post.find({
             user: req.user._id
+        }).sort({
+            createdAt: -1
         })
+        return Response(
+            res,
+            200,
+            true,
+            "Posts fetched",
+            posts
+        );
     } catch (error) {
         return Response(res, 500, false, error?.message || "Server error")
     }
@@ -126,10 +142,29 @@ export const getPosts = async (req, res) => {
 // POST /api/posts/
 export const schedulePost = async (req, res) => {
     try {
-        const { content, platforms, scheduledFor, status } = req.body;
+        const { content, platforms, scheduledFor } = req.body;
+
+
+        if (!content) {
+            return Response(res, 400, false, "Content is required");
+        }
+
+        if (!platforms) {
+            return Response(res, 400, false, "Select at least one platform");
+        }
+
+        if (!scheduledFor) {
+            return Response(res, 400, false, "Schedule date is required");
+        }
+
+        if (Number.isNaN(new Date(scheduledFor).getTime())) {
+            return Response(res, 400, false, "Schedule date is invalid");
+        }
 
         // Parse platforms if it come as a stringfied array from FormData
         let parsedPlatforms = platforms;
+
+
         if (typeof platforms === "string") {
             try {
                 parsedPlatforms = JSON.parse(platforms)
@@ -138,26 +173,41 @@ export const schedulePost = async (req, res) => {
             }
         }
 
-        let mediaUrl = req.body.mediaUrl;
-        let mediaType = req.body.mediaType;
 
-        if (req.file) {
-            const result = await new Promise((resolve, reject) => {
-                const stream = cloudinary.uploader.upload_stream(
-                    {
-                        resource_type: "auto",
-                        folder: "PostOn"
-                    },
-                    (error, result) => {
-                        if (error) reject(error);
-                        else resolve(result);
-                    }
-                );
 
-                stream.end(req.file.buffer);
-            });
-            mediaUrl = result.secure_url;
-            mediaType = result.resource_type === "video" ? "video" : "image";
+        if (!Array.isArray(parsedPlatforms) || parsedPlatforms.length === 0) {
+            return Response(res, 400, false, "Select at least one platform");
+        }
+
+        let mediaUrl = "";
+        let mediaType;
+
+
+        if (req.files?.media?.length > 0) {
+            const file = req.files.media[0];
+
+            const fileUri = getDataUri(file);
+
+            const cloudResponse = await cloudinary.uploader.upload(
+                fileUri.content,
+                {
+                    folder: "PostOn",
+                    resource_type: "auto",
+                    transformation: [
+                        {
+                            width: 1080,
+                            height: 1080,
+                            crop: "fill",
+                        },
+                    ],
+                }
+            );
+
+            mediaUrl = cloudResponse.secure_url;
+            mediaType =
+                cloudResponse.resource_type === "video"
+                    ? "video"
+                    : "image";
         }
 
         const post = await Post.create({
@@ -167,12 +217,16 @@ export const schedulePost = async (req, res) => {
             mediaUrl,
             mediaType,
             scheduledFor,
-            status
+            status: "scheduled"
         })
+
+
 
         return Response(res, 200, true, "Post is Scheduled", post)
 
     } catch (error) {
+        // console.error("Failed to schedule post:", error);
+        // console.error("schedulePost error:", error);
         return Response(res, 500, false, error?.message || "Server error")
     }
 }

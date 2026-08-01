@@ -10,18 +10,27 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const [postRes, accountsRes, activityRes] = await Promise.all([api.get("/api/post"), api.get("/api/accounts"), api.get("/api/activity")])
-        const posts = postRes.data;
+        const [postRes, accountsRes, activityRes] = await Promise.all([api.get("/api/posts"), api.get("/api/accounts"), api.get("/api/activity")])
+
+        const posts = postRes.data.data || [];
+        const accounts = accountsRes.data.data || [];
+        const activities = activityRes.data.data || [];
 
         setStats({
-          scheduled: posts.filter((p) => p.status === "scheduled").length,
-          published: posts.filter((p) => p.status === "published").length,
-          connectedAccounts: accountsRes.data.filter(
+          scheduled: posts.filter(
+            (p) => p.status === "scheduled"
+          ).length,
+
+          published: posts.filter(
+            (p) => p.status === "published"
+          ).length,
+
+          connectedAccounts: accounts.filter(
             (a) => a.status === "connected"
           ).length,
         });
 
-        setActivities(accountsRes.data);
+         setActivities(activities);
       } catch (error) {
         console.log(error);
       }

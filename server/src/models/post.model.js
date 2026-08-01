@@ -6,12 +6,13 @@ const postSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    platform: {
+    platforms: [{
         type: String,
         enum: [
             "twitter", "linkedin", "facebook", "instagram", "facebook_page", "linkedin_page", "instagram_business"
         ],
-    },
+        required: true,
+    }],
     scheduledFor: {
         type: Date,
         required: true

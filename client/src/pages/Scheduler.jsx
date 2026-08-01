@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { dummyPostsData, PLATFORMS } from "../assets/assets";
+import { PLATFORMS } from "../assets/assets";
 import { CalendarDaysIcon, SendIcon, XIcon } from "lucide-react";
+import api from "../api/api";
+import toast from "react-hot-toast";
 
 const Scheduler = () => {
 
@@ -13,14 +15,19 @@ const Scheduler = () => {
   const [loading, setLoading] = useState(false)
 
   const fetchPosts = async () => {
-    setPosts(dummyPostsData)
+    try {
+      const { data } = await api.get("/api/posts")
+      setPosts(data.data) // server wraps the payload as { success, message, data }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to load posts")
+    }
   }
 
   useEffect(() => {
-    (async () => await fetchPosts())();
-    const interval = setInterval(async () => await fetchPosts(), 1000);
+    fetchPosts();
+    const interval = setInterval(fetchPosts, 10000);
     return () => clearInterval(interval);
-  })
+  }, []) // <- run once on mount, not on every render
 
   const scheduled = posts.filter((p) => p.status === "scheduled")
   const published = posts.filter((p) => p.status === "published")
@@ -29,11 +36,44 @@ const Scheduler = () => {
 
   const handleSchedule = async (e) => {
     e.preventDefault()
+    if (selectPlatforms.length === 0) {
+      toast.error("Select at least one platform")
+      return;
+    }
+    if (!scheduledDate || !schduledTime) {
+      toast.error("Select time and date")
+      return;
+    }
+    if (selectPlatforms.includes('instagram') && !mediaFile) {
+      toast.error("Instagram required an image or video")
+      return;
+    }
+
+    const scheduledFor = new Date(`${scheduledDate}T${schduledTime}`).toISOString();
+    const formData = new FormData();
+    formData.append("content", content)
+    formData.append("scheduledFor", scheduledFor)
+    formData.append("status", "scheduled") // was mistakenly sending the `scheduled` posts array
+    formData.append("platforms", JSON.stringify(selectPlatforms))
+    if (mediaFile) formData.append("media", mediaFile)
+    console.log(mediaFile);
+
     setLoading(true)
-    setTimeout(() => {
+
+    try {
+      const { data } = await api.post('/api/posts', formData)
+      setPosts((prev) => [data.data, ...prev])
+      toast.success("Post Scheduled")
+      setContent("");
+      setSchduledTime("");
+      setSetscheduledDate("");
+      setselectPlatforms([]);
+      setMediaFile(null);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to schedule post")
+    } finally {
       setLoading(false)
-      setPosts((preb) => [...prev, dummyPostsData[0]])
-    }, 1000)
+    }
   }
 
   return (
