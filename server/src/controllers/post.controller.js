@@ -28,7 +28,7 @@ export const generatePost = async (req, res) => {
 
         // Generate Text
         const textResponse = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
+            model: "gemini-flash-latest",
             contents: `Generate a socil media post based on this prompt : "${prompt}".
              Tone : ${tone}.
              Include relevent hastags.
@@ -51,40 +51,63 @@ export const generatePost = async (req, res) => {
         }
 
         let mediaUrl = "";
+        // if (generateImage) {
+        //     try {
+        //         const hfApiKey = process.env.HUGGING_FACE_API_KEY;
+        //         if (!hfApiKey) {
+        //             return Response(res, 400, false, "Hugging Face API key is missing");
+        //         }
+
+        //         // Use Hugging Face open-source model for image generation
+        //         const hfModel = "black-forest-labs/FLUX.1-schnell";
+
+        //         const hfResponse = await axios.post(
+        //             `https://api-inference.huggingface.co/models/${hfModel}`,
+        //             { inputs: imagePrompt },
+        //             {
+        //                 headers: {
+        //                     Authorization: `Bearer ${hfApiKey}`,
+        //                     "Content-Type": "application/json",
+        //                 },
+        //                 responseType: "arraybuffer",
+        //             }
+        //         );
+
+        //         const base64Image = Buffer.from(hfResponse.data).toString("base64");
+        //         const tempUrl = `data:image/png;base64,${base64Image}`;
+
+        //         // upload to cloudinary for persistence
+        //         const uploadResult = await cloudinary.uploader.upload(tempUrl, {
+        //             folder: "ai-generations"
+        //         })
+
+        //         mediaUrl = uploadResult.secure_url;
+
+        //     } catch (error) {
+        //         console.log("Image generation error:", error.message);
+        //     }
+        // }
+
         if (generateImage) {
             try {
-                const hfApiKey = process.env.HUGGING_FACE_API_KEY;
-                if (!hfApiKey) {
-                    return Response(res, 400, false, "Hugging Face API key is missing");
-                }
+                const encodedPrompt = encodeURIComponent(imagePrompt);
+                const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true`;
 
-                // Use Hugging Face open-source model for image generation
-                const hfModel = "black-forest-labs/FLUX.1-schnell";
+                const imgResponse = await axios.get(pollinationsUrl, {
+                    responseType: "arraybuffer",
+                });
 
-                const hfResponse = await axios.post(
-                    `https://api-inference.huggingface.co/models/${hfModel}`,
-                    { inputs: imagePrompt },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${hfApiKey}`,
-                            "Content-Type": "application/json",
-                        },
-                        responseType: "arraybuffer",
-                    }
-                );
-
-                const base64Image = Buffer.from(hfResponse.data).toString("base64");
+                const base64Image = Buffer.from(imgResponse.data).toString("base64");
                 const tempUrl = `data:image/png;base64,${base64Image}`;
 
-                // upload to cloudinary for persistence
                 const uploadResult = await cloudinary.uploader.upload(tempUrl, {
-                    folder: "ai-generations"
-                })
+                    folder: "ai-generations",
+                });
 
                 mediaUrl = uploadResult.secure_url;
-
             } catch (error) {
                 console.log("Image generation error:", error.message);
+                // don't fail the whole request — text content already generated successfully
             }
         }
 
@@ -116,7 +139,7 @@ export const getGenerations = async (req, res) => {
     }
 }
 
-// Get Post  
+// Get Post   
 // GET /api/posts/
 export const getPosts = async (req, res) => {
     try {
@@ -142,7 +165,13 @@ export const getPosts = async (req, res) => {
 // POST /api/posts/
 export const schedulePost = async (req, res) => {
     try {
-        const { content, platforms, scheduledFor } = req.body;
+        const {
+            content,
+            platforms,
+            scheduledFor,
+            mediaUrl: existingMediaUrl,
+            mediaType: existingMediaType,
+        } = req.body;
 
 
         if (!content) {
@@ -179,8 +208,8 @@ export const schedulePost = async (req, res) => {
             return Response(res, 400, false, "Select at least one platform");
         }
 
-        let mediaUrl = "";
-        let mediaType;
+        let mediaUrl = existingMediaUrl || "";
+        let mediaType = existingMediaType || "";
 
 
         if (req.files?.media?.length > 0) {
@@ -209,7 +238,6 @@ export const schedulePost = async (req, res) => {
                     ? "video"
                     : "image";
         }
-
         const post = await Post.create({
             user: req.user._id,
             content,
