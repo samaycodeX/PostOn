@@ -26,7 +26,7 @@ const AIComposer = () => {
 
       setGenerations(data.data);
     } catch (error) {
-      toast.error(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message || "Failed to load generations")
     }
   }
 

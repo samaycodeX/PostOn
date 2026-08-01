@@ -2,10 +2,12 @@ import { useDispatch } from "react-redux"
 import { useEffect } from "react";
 import api from "../api/api.js";
 import { setUser } from "../redux/features/authSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const useGetCurrentUser = () => {
     const dispatch = useDispatch()
+
     useEffect(() => {
         const fetchUser = async () => {
             const token = localStorage.getItem("token")
