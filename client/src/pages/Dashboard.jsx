@@ -30,7 +30,7 @@ const Dashboard = () => {
           ).length,
         });
 
-         setActivities(activities);
+        setActivities(activities);
       } catch (error) {
         console.log(error);
       }
@@ -48,9 +48,9 @@ const Dashboard = () => {
     <div className="space-y-8">
       {/* Welcome Bar */}
       <div >
-        <h2 className="text-2xl  text-slate-800">Good Morning!👋</h2>
+        <h2 className="text-2xl  text-[#102E46]">Good Morning!👋</h2>
 
-        <p className="mt-0.5 text-sm text-slate-500">
+        <p className="mt-0.5 text-sm text-[#7D8894]">
           Here's what's happening with your social accounts today.
         </p>
       </div>
@@ -60,12 +60,12 @@ const Dashboard = () => {
         {STATS_CARDS.map((card) => (
           <div
             key={card.label}
-            className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+            className="rounded-xl border border-[#E8F1F5] bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
           >
             {/* Top */}
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-2xl text-slate-800">
+                <h3 className="text-2xl text-[#102E46]">
                   {card.value}
                 </h3>
 
@@ -75,13 +75,13 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-red-50">
-                <card.icon className="size-4 text-red-500" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#EAF8FD]">
+                <card.icon className="size-4 text-[#78C6E3]" />
               </div>
             </div>
 
             {/* Bottom */}
-            <p className="mt-5 text-sm font-medium text-slate-500">
+            <p className="mt-5 text-sm font-medium text-[#7D8894]">
               {card.label}
             </p>
           </div>
@@ -89,25 +89,25 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
-        <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-          <h3 className="  text-slate-800">
+      <div className="rounded-xl border border-[#E8F1F5] bg-white shadow-sm">
+        <div className="border-b border-[#E8F1F5] px-6 py-4 flex items-center justify-between">
+          <h3 className="  text-[#102E46]">
             Recent Activity
           </h3>
-          <span className='text-sm text-slate-400'>{activities.length} events</span>
+          <span className='text-sm text-[#7D8894]'>{activities.length} events</span>
         </div>
 
         {activities.length === 0 ? (
           <div className="py-14 text-center">
-            <ActivityIcon className="mx-auto mb-3 size-6 text-slate-300" />
+            <ActivityIcon className="mx-auto mb-3 size-6 text-[#CFEAF5]" />
 
-            <p className="text-slate-500 text-sm mb-1">
+            <p className="text-[#7D8894] text-sm mb-1">
               No recent activity available.
             </p>
-            <p className='text-slate-500 text-xs'>Connect accounts and schedule posts to see events here.</p>
+            <p className='text-[#7D8894] text-xs'>Connect accounts and schedule posts to see events here.</p>
           </div>
         ) : (
-          <div className="divide-y divide-slate-200">
+          <div className="divide-y divide-[#E8F1F5]">
             {/* Activity List */}
 
             {activities.map((activity) => (
@@ -115,22 +115,22 @@ const Dashboard = () => {
                 key={activity._id}
                 className="flex items-start gap-4 p-4"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-50">
-                  <SendIcon className="size-4 text-red-500" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAF8FD]">
+                  <SendIcon className="size-4 text-[#78C6E3]" />
                 </div>
 
                 <div className="flex-1">
                   <div className="mb-1 flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-800">
+                    <span className="text-sm font-medium text-[#102E46]">
                       Published
                     </span>
 
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-[#7D8894]">
                       {new Date(activity.createdAt).toLocaleString()}
                     </span>
                   </div>
 
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-[#7D8894]">
                     {activity.description}
                   </p>
                 </div>
