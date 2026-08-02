@@ -44,8 +44,6 @@ const Accounts = () => {
       }
 
       const { data } = await api.get("/api/accounts");
-      console.log(data.length);
-      
 
       dispatch(setAccounts(data.data));
 
@@ -153,18 +151,18 @@ const Accounts = () => {
     <div className="space-y-8 max-w-4xl">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-xl text-slate-800">
+          <h2 className="text-xl text-[#102E46]">
             Connected Accounts
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-[#5F6B78]">
             {accounts.length} of {PLATFORMS.length} platforms connected
           </p>
         </div>
 
         <button
           onClick={() => setShowPlatformPicker(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-600"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#102E46] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#183D5C]"
         >
           <PlusIcon className="size-4" />
           Connect Account

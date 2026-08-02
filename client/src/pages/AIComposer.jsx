@@ -113,8 +113,8 @@ const AIComposer = () => {
 
 
       {/* Input Section */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <h1 className="border-b border-slate-200 px-6 py-5 text-xl text-slate-900 ">
+      <div className="rounded-2xl border border-[#E8F1F5] bg-white shadow-sm">
+        <h1 className="border-b border-[#E8F1F5] px-6 py-5 text-xl text-[#102E46] ">
           What should we create today?
         </h1>
 
@@ -124,7 +124,7 @@ const AIComposer = () => {
             placeholder="Share your idea... (e.g. A post about the lauch of our new eco-friendly coffee beans)"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            className="w-full resize-none rounded-xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100"
+            className="w-full resize-none rounded-xl border border-[#E8F1F5] px-4 py-3 text-sm outline-none transition focus:border-[#78C6E3] focus:ring-2 focus:ring-[#78C6E3]/20"
             rows={6}
           />
 
@@ -132,12 +132,12 @@ const AIComposer = () => {
 
             <button
               onClick={() => setGenerateImage(!generateImage)}
-              className="flex items-center gap-3 text-sm text-slate-700"
+              className="flex items-center gap-3 text-sm text-[#5F6B78]"
             >
               <span>AI Image</span>
 
               <div
-                className={`flex h-4.5 w-9.5 items-center rounded-full transition ${generateImage ? "bg-red-500" : "bg-slate-300"
+                className={`flex h-4.5 w-9.5 items-center rounded-full transition ${generateImage ? "bg-[#102E46]" : "bg-slate-300"
                   }`}
               >
                 <span
@@ -152,7 +152,7 @@ const AIComposer = () => {
             <button
               disabled={loading}
               onClick={handleGenerate}
-              className="flex items-center gap-2 rounded-xl bg-red-500 px-5 py-3 text-sm text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex items-center gap-2 rounded-xl bg-[#102E46] px-5 py-3 text-sm text-white transition hover:bg-[#183D5C] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? (
                 <>
@@ -171,14 +171,14 @@ const AIComposer = () => {
 
         </div>
 
-        <div className="flex flex-wrap gap-2 border-t border-slate-200 px-6 py-4">
+        <div className="flex flex-wrap gap-2 border-t border-[#E8F1F5] px-6 py-4">
           {tones.map((t) => (
             <button
               key={t}
               onClick={() => setTone(t)}
               className={`rounded-full border px-3 py-1.5 text-xs transition ${tone === t
-                ? "border-red-500 bg-red-50 text-red-600"
-                : "border-slate-200 bg-white text-slate-600 hover:border-red-300 hover:bg-red-50"
+                ? "border-[#78C6E3] bg-[#EAF8FD] text-[#102E46]"
+                : "border-[#E8F1F5] bg-white text-[#5F6B78] hover:border-[#CFEAF5] hover:bg-[#EAF8FD]"
                 }`}
             >
               {t}
@@ -188,47 +188,47 @@ const AIComposer = () => {
       </div>
 
       {/* AI Generated Posts */}
-      <div className="overflow-hidden rounded-2xl border border-slate-200 ">
+      <div className="overflow-hidden rounded-2xl border border-[#E8F1F5] ">
 
-        <div className="flex items-center gap-2.5 border-b border-slate-200 px-5 py-4 bg-white">
+        <div className="flex items-center gap-2.5 border-b border-[#E8F1F5] px-5 py-4 bg-white">
           <div className="flex items-center gap-2">
-            <HistoryIcon className="size-4 text-zinc-500" />
-            <h2 className="text-sm text-slate-900">
+            <HistoryIcon className="size-4 text-[#7D8894]" />
+            <h2 className="text-sm text-[#102E46]">
               Recent Generations
             </h2>
           </div>
 
-          <span className="ml-auto rounded-full bg-red-50 px-2 py-0.5 text-xs  text-red-500">
+          <span className="ml-auto rounded-full bg-[#EAF8FD] px-2 py-0.5 text-xs  text-[#78C6E3]">
             {generations.length} total
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 overflow-y-auto divide-y divide-slate-100 p-5 gap-6 max-h-120">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 overflow-y-auto divide-y divide-[#E8F1F5] p-5 gap-6 max-h-120">
 
           {generations.map((gen) => (
             <div
               key={gen._id}
-              className="p-4 transition-all group bg-white rounded-xl border border-slate-100 hover:border-red-200 relative overflow-hidden"
+              className="p-4 transition-all group bg-white rounded-xl border border-[#E8F1F5] hover:border-[#CFEAF5] relative overflow-hidden"
             >
               <div className="flex flex-col h-full space-y-4">
 
                 <div className="flex items-center justify-between">
 
-                  <span className="text-xs text-slate-500 uppercase tracking-tight">
+                  <span className="text-xs text-[#7D8894] uppercase tracking-tight">
                     {new Date(gen.createdAt).toLocaleString()}
                   </span>
 
-                  <span className="rounded-full bg-red-50 px-2 py-0.5 text-xs  text-red-500">
+                  <span className="rounded-full bg-[#EAF8FD] px-2 py-0.5 text-xs  text-[#78C6E3]">
                     {gen.tone}
                   </span>
 
                 </div>
-                <p className="text-xs leading-relaxed flex-1 text-slate-700 line-clamp-3">
+                <p className="text-xs leading-relaxed flex-1 text-[#5F6B78] line-clamp-3">
                   {gen.content}
                 </p>
 
                 {gen.mediaUrl && (
-                  <div className="overflow-hidden rounded-xl border border-slate-50 bg-slate-50">
+                  <div className="overflow-hidden rounded-xl border border-[#E8F1F5] bg-[#F1F8FC]">
                     <img
                       src={gen.mediaUrl}
                       alt="Gen"
@@ -239,7 +239,7 @@ const AIComposer = () => {
                 <div className="flex items-center">
                   <button
                     onClick={() => setActiveScheduler(gen)}
-                    className="flex-1 bg-slate-100 rounded-xl border border-slate-200 px-4 py-2.25 text-xs text-slate-600 transition  hover:bg-red-500 hover:text-white"
+                    className="flex-1 bg-[#F1F8FC] rounded-xl border border-[#E8F1F5] px-4 py-2.25 text-xs text-[#5F6B78] transition  hover:bg-[#102E46] hover:text-white"
                   >
                     Schedule Post
                   </button>
@@ -254,11 +254,11 @@ const AIComposer = () => {
           {generations.length === 0 && (
             <div className="flex flex-col items-center justify-center py-16">
 
-              <div className="mb-4 rounded-full bg-red-50 p-4">
-                <Wand2Icon className="size - 6 text-red-500" />
+              <div className="mb-4 rounded-full bg-[#EAF8FD] p-4">
+                <Wand2Icon className="size - 6 text-[#78C6E3]" />
               </div>
 
-              <p className="max-w-sm text-center text-sm leading-6 text-slate-500">
+              <p className="max-w-sm text-center text-sm leading-6 text-[#7D8894]">
                 No content genreted yet. Try generating some content using the AI.
               </p>
 
@@ -273,18 +273,18 @@ const AIComposer = () => {
 
       {activeScheduler && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
-          <div className="flex h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+          <div className="flex h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-[#E8F1F5] bg-white shadow-xl">
 
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 shrink-0">
+            <div className="flex items-center justify-between border-b border-[#E8F1F5] px-6 py-4 shrink-0">
 
-              <h3 className="text-lg text-slate-900">
+              <h3 className="text-lg text-[#102E46]">
                 Schedule Generation
               </h3>
 
               <button
                 onClick={() => setActiveScheduler(null)}
-                className="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+                className="rounded-lg p-2 text-[#7D8894] transition hover:bg-[#EAF8FD] hover:text-[#102E46]"
               >
                 <XIcon className="size-5" />
               </button>
@@ -294,23 +294,23 @@ const AIComposer = () => {
             {/* Scrollable Body */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
 
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                <label className="mb-2 block text-xs uppercase tracking-wide text-slate-500">
+              <div className="rounded-xl border border-[#E8F1F5] bg-[#F1F8FC] p-4">
+                <label className="mb-2 block text-xs uppercase tracking-wide text-[#7D8894]">
                   Prompt
                 </label>
 
-                <p className="text-sm leading-6 text-slate-700">
+                <p className="text-sm leading-6 text-[#5F6B78]">
                   {activeScheduler.prompt}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <div className="rounded-xl border border-[#E8F1F5] bg-white p-4">
 
-                <label className="mb-2 block text-xs uppercase tracking-wide text-slate-500">
+                <label className="mb-2 block text-xs uppercase tracking-wide text-[#7D8894]">
                   Generated Content
                 </label>
 
-                <p className="text-sm leading-6 text-slate-700">
+                <p className="text-sm leading-6 text-[#5F6B78]">
                   {activeScheduler.content}
                 </p>
 
@@ -318,7 +318,7 @@ const AIComposer = () => {
                   <img
                     src={activeScheduler.mediaUrl}
                     alt="preview"
-                    className="mt-4 max-h-72 w-full rounded-xl border border-slate-200 object-cover"
+                    className="mt-4 max-h-72 w-full rounded-xl border border-[#E8F1F5] object-cover"
                   />
                 )}
 
@@ -327,12 +327,12 @@ const AIComposer = () => {
             </div>
 
             {/* Footer */}
-            <div className="shrink-0 border-t border-slate-200 p-6 space-y-5">
+            <div className="shrink-0 border-t border-[#E8F1F5] p-6 space-y-5">
 
               {/* options */}
               <div>
 
-                <label className="mb-3 block text-xs uppercase tracking-wide text-slate-700">
+                <label className="mb-3 block text-xs uppercase tracking-wide text-[#5F6B78]">
                   Select Platforms
                 </label>
 
@@ -351,8 +351,8 @@ const AIComposer = () => {
                           )
                         }
                         className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all ${active
-                          ? "border-red-500 bg-red-50 text-red-500"
-                          : "border-slate-200 bg-white text-slate-500 hover:border-red-300 hover:bg-red-50"
+                          ? "border-[#78C6E3] bg-[#EAF8FD] text-[#78C6E3]"
+                          : "border-[#E8F1F5] bg-white text-[#7D8894] hover:border-[#CFEAF5] hover:bg-[#EAF8FD]"
                           }`}
                       >
                         <p.icon className="size-4" />
@@ -365,8 +365,8 @@ const AIComposer = () => {
 
               <div className="grid grid-cols-2 gap-4">
 
-                <div className="flex items-center gap-3 rounded-xl border border-slate-200 px-4 h-11">
-                  <CalendarIcon className="size-4 text-slate-500" />
+                <div className="flex items-center gap-3 rounded-xl border border-[#E8F1F5] px-4 h-11">
+                  <CalendarIcon className="size-4 text-[#7D8894]" />
 
                   <input
                     type="date"
@@ -376,8 +376,8 @@ const AIComposer = () => {
                   />
                 </div>
 
-                <div className="flex items-center gap-3 rounded-xl border border-slate-200 px-4 h-11">
-                  <ClockIcon className="size-4 text-slate-500" />
+                <div className="flex items-center gap-3 rounded-xl border border-[#E8F1F5] px-4 h-11">
+                  <ClockIcon className="size-4 text-[#7D8894]" />
 
                   <input
                     type="time"
@@ -391,7 +391,7 @@ const AIComposer = () => {
 
               <button
                 onClick={handleSchedule}
-                className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-red-500 text-sm font-medium text-white transition hover:bg-red-600"
+                className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#102E46] text-sm font-medium text-white transition hover:bg-[#183D5C]"
               >
                 {scheduling ? (
                   <Loader2Icon className="size-4 animate-spin" />

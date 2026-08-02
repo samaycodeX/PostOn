@@ -77,7 +77,7 @@ export default function Login() {
     }, [user])
 
     return (
-        <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-[#F1F8FC] flex items-center justify-center p-4">
             <div className="relative w-full max-w-md">
                 <div className="bg-white rounded-2xl shadow-sm p-8">
                     <div className="flex flex-col items-center mb-8">
@@ -85,45 +85,45 @@ export default function Login() {
                             <img src="/logo.svg" alt="Logo" className="size-6.5" />
                             <h1 className="text-2xl">PostOn</h1>
                         </Link>
-                        <p className="text-slate-500 text-sm mt-1">Sign in to your Dashboard</p>
+                        <p className="text-[#7D8894] text-sm mt-1">Sign in to your Dashboard</p>
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-5 text-sm">
                         {!loginState && (
                             <div>
                                 <label className="block mb-1.5">Name</label>
                                 <div className="relative">
-                                    <User2Icon className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                                    <input type="text" required placeholder="Enter your name" className="w-full pl-10 pr-4 py-2.5 bg-slate-50 outline-slate-300 border border-slate-200 rounded-full" value={name} onChange={(e) => setName(e.target.value)} />
+                                    <User2Icon className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7D8894]" />
+                                    <input type="text" required placeholder="Enter your name" className="w-full pl-10 pr-4 py-2.5 bg-[#F1F8FC] outline-[#CFEAF5] border border-[#E8F1F5] rounded-full" value={name} onChange={(e) => setName(e.target.value)} />
                                 </div>
                             </div>
                         )}
                         <div>
                             <label className="block mb-1.5">Email</label>
                             <div className="relative">
-                                <MailIcon className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input type="email" required placeholder="you@company.com" className="w-full pl-10 pr-4 py-2.5 bg-slate-50 outline-slate-300 border border-slate-200 rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <MailIcon className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7D8894]" />
+                                <input type="email" required placeholder="you@company.com" className="w-full pl-10 pr-4 py-2.5 bg-[#F1F8FC] outline-[#CFEAF5] border border-[#E8F1F5] rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
                         </div>
                         <div>
                             <label className="block mb-1.5">Password</label>
                             <div className="relative">
-                                <LockIcon className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input type="password" required placeholder="********" className="w-full pl-10 pr-4 py-2.5 bg-slate-50 outline-slate-300 border border-slate-200 rounded-full" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                <LockIcon className="size-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7D8894]" />
+                                <input type="password" required placeholder="********" className="w-full pl-10 pr-4 py-2.5 bg-[#F1F8FC] outline-[#CFEAF5] border border-[#E8F1F5] rounded-full" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
                             {showPasswordErrors && !passwordValidation.isValid && (
                                 <div className="mt-2 text-sm space-y-1">
                                     {!passwordValidation.minLength && (
-                                        <p className="text-red-500">
+                                        <p className="text-[#78C6E3]">
                                             • At least 6 characters
                                         </p>
                                     )}
                                     {!passwordValidation.hasNumber && (
-                                        <p className="text-red-500">
+                                        <p className="text-[#78C6E3]">
                                             • Contains a number
                                         </p>
                                     )}
                                     {!passwordValidation.hasUpperCase && (
-                                        <p className="text-red-500">
+                                        <p className="text-[#78C6E3]">
                                             • Contains a capital letter
                                         </p>
                                     )}
@@ -131,7 +131,7 @@ export default function Login() {
                             )}
                         </div>
 
-                        <button type="submit" disabled={loading} className="w-full py-2.5 px-4 bg-linear-to-r from-red-600 to-red-500 text-white rounded-full text-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2">
+                        <button type="submit" disabled={loading} className="w-full py-2.5 px-4 bg-linear-to-r from-[#102E46] to-[#183D5C] text-white rounded-full text-sm transition-all disabled:opacity-60 flex items-center justify-center gap-2">
                             {loading ? (
                                 loginState ? "Signing in..." : "Signing up..."
                             ) : (
@@ -142,18 +142,18 @@ export default function Login() {
                         </button>
                     </form>
 
-                    <div className="mt-6 text-center text-sm text-slate-500">
+                    <div className="mt-6 text-center text-sm text-[#7D8894]">
                         {loginState ? (
                             <>
                                 Don't have an account?{" "}
-                                <button onClick={() => setLoginState(false)} className="text-red-600 hover:text-red-700">
+                                <button onClick={() => setLoginState(false)} className="text-[#102E46] hover:text-[#183D5C]">
                                     Create one free
                                 </button>
                             </>
                         ) : (
                             <>
                                 Already have an account?{" "}
-                                <button onClick={() => setLoginState(true)} className="text-red-600 hover:text-red-700">
+                                <button onClick={() => setLoginState(true)} className="text-[#102E46] hover:text-[#183D5C]">
                                     Sign In
                                 </button>
                             </>

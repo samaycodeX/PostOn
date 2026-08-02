@@ -81,12 +81,12 @@ const Scheduler = () => {
       <div className="flex gap-5">
 
         {/* Compose panel */}
-        <div className="rounded-xl border border-slate-200 bg-white shadow-sm h-fit w-115">
-          <div className="border-b border-slate-200 px-6 py-4">
-            <h2 className="text-xl text-slate-800">
+        <div className="rounded-xl border border-[#E8F1F5] bg-white shadow-sm h-fit w-115">
+          <div className="border-b border-[#E8F1F5] px-6 py-4">
+            <h2 className="text-xl text-[#102E46]">
               Compose Post
             </h2>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-[#7D8894]">
               Create and schedule your social media content.
             </p>
           </div>
@@ -95,7 +95,7 @@ const Scheduler = () => {
 
             {/* Platform */}
             <div>
-              <label className="mb-1 block text-xs text-slate-700 uppercase">
+              <label className="mb-1 block text-xs text-[#5F6B78] uppercase">
                 Platform
               </label>
 
@@ -110,8 +110,8 @@ const Scheduler = () => {
                       onClick={() => togglePlatform(p.id)}
                       className={`flex h-10 w-10 items-center justify-center rounded-xl border transition-all
                       ${active
-                          ? "border-red-500 bg-red-50 text-red-500"
-                          : "border-slate-200 bg-white text-slate-500 hover:border-red-300 hover:bg-red-50"
+                          ? "border-[#78C6E3] bg-[#EAF8FD] text-[#78C6E3]"
+                          : "border-[#E8F1F5] bg-white text-[#7D8894] hover:border-[#CFEAF5] hover:bg-[#EAF8FD]"
                         }`}
                     >
                       <p.icon className="size-4" />
@@ -123,7 +123,7 @@ const Scheduler = () => {
 
             {/* Content */}
             <div>
-              <label className="mb-1 block text-xs text-slate-700 uppercase">
+              <label className="mb-1 block text-xs text-[#5F6B78] uppercase">
                 Content
               </label>
 
@@ -133,13 +133,13 @@ const Scheduler = () => {
                 placeholder="What do you want to share today?"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-xs outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-xl border border-[#E8F1F5] px-4 py-3 text-xs outline-none transition focus:border-[#78C6E3] focus:ring-2 focus:ring-[#78C6E3]/20"
               />
 
               <div
                 className={`text-right text-xs ${content.length > 270
-                  ? "text-red-500"
-                  : "text-slate-500"
+                  ? "text-[#78C6E3]"
+                  : "text-[#7D8894]"
                   }`}
               >
                 {content.length}/280
@@ -148,12 +148,12 @@ const Scheduler = () => {
 
             {/* Media Upload */}
             <div>
-              <label className="mb-1 block text-xs uppercase tracking-wide text-slate-700">
+              <label className="mb-1 block text-xs uppercase tracking-wide text-[#5F6B78]">
                 Media (Optional)
               </label>
 
               {mediaFile ? (
-                <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                <div className="relative overflow-hidden rounded-xl border border-[#E8F1F5] bg-[#F1F8FC]">
                   {mediaFile.type.startsWith("image/") ? (
                     <img
                       src={URL.createObjectURL(mediaFile)}
@@ -171,19 +171,19 @@ const Scheduler = () => {
                   <button
                     type="button"
                     onClick={() => setMediaFile(null)}
-                    className="absolute right-3 top-3 rounded-full bg-black/70 p-2 text-white transition hover:bg-red-500"
+                    className="absolute right-3 top-3 rounded-full bg-black/70 p-2 text-white transition hover:bg-[#102E46]"
                   >
                     <XIcon className="size-3.5" />
                   </button>
                 </div>
               ) : (
                 <div>
-                  <label className="flex h-20 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 transition-all duration-200 hover:border-red-400 hover:bg-red-50">
-                    <span className="text-sm font-medium text-slate-700">
+                  <label className="flex h-20 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-[#CFEAF5] bg-[#F1F8FC] transition-all duration-200 hover:border-[#78C6E3] hover:bg-[#EAF8FD]">
+                    <span className="text-sm font-medium text-[#5F6B78]">
                       Click to upload image or video
                     </span>
 
-                    <span className="mt-1 text-xs text-slate-500">
+                    <span className="mt-1 text-xs text-[#7D8894]">
                       PNG, JPG, JPEG, GIF, MP4
                     </span>
 
@@ -202,7 +202,7 @@ const Scheduler = () => {
             <div className="grid gap-4 sm:grid-cols-2">
 
               <div>
-                <label className="mb-2 block text-xs text-slate-700 uppercase">
+                <label className="mb-2 block text-xs text-[#5F6B78] uppercase">
                   Schedule Date
                 </label>
 
@@ -210,12 +210,12 @@ const Scheduler = () => {
                   type="date"
                   value={scheduledDate}
                   onChange={(e) => setSetscheduledDate(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                  className="w-full rounded-xl border border-[#E8F1F5] px-4 py-3 outline-none focus:border-[#78C6E3] focus:ring-2 focus:ring-[#78C6E3]/20"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-xs text-slate-700 uppercase">
+                <label className="mb-2 block text-xs text-[#5F6B78] uppercase">
                   Schedule Time
                 </label>
 
@@ -223,7 +223,7 @@ const Scheduler = () => {
                   type="time"
                   value={schduledTime}
                   onChange={(e) => setSchduledTime(e.target.value)}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                  className="w-full rounded-xl border border-[#E8F1F5] px-4 py-3 outline-none focus:border-[#78C6E3] focus:ring-2 focus:ring-[#78C6E3]/20"
                 />
               </div>
 
@@ -233,7 +233,7 @@ const Scheduler = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-red-500 px-5 py-3 text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-xl bg-[#102E46] px-5 py-3 text-white transition hover:bg-[#183D5C] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? "Scheduling..." : "Schedule Post"}
             </button>
@@ -245,31 +245,31 @@ const Scheduler = () => {
         <div className="flex-1 flex-col gap-6 min-w-0">
 
           {/* Upcoming post */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm mb-5">
+          <div className="overflow-hidden rounded-2xl border border-[#E8F1F5] bg-white shadow-sm mb-5">
             {/* Header */}
-            <div className="flex items-center gap-2.5 px-5 py-4 border-b border-slate-200 ">
+            <div className="flex items-center gap-2.5 px-5 py-4 border-b border-[#E8F1F5] ">
 
-              <CalendarDaysIcon className="size-4 text-zinc-500" />
-              <h3 className="text-sm text-slate-900">
+              <CalendarDaysIcon className="size-4 text-[#7D8894]" />
+              <h3 className="text-sm text-[#102E46]">
                 Upcoming
               </h3>
-              <span className="ml-auto text-xs font-bold bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded-full">
+              <span className="ml-auto text-xs font-bold bg-[#EAF8FD] text-[#2D4B61] px-2 py-0.5 rounded-full">
                 {scheduled.length}
               </span>
 
             </div>
 
             {/* Body */}
-            <div className="max-h-72 overflow-y-auto divide-y divide-slate-50">
+            <div className="max-h-72 overflow-y-auto divide-y divide-[#E8F1F5]">
               {scheduled.length === 0 ? (
-                <div className="py-10 text-center text-slate-400 text-sm">
+                <div className="py-10 text-center text-[#7D8894] text-sm">
                   No scheduled posts yet.
                 </div>
               ) : (
                 scheduled.map((post) => (
                   <div
                     key={post._id}
-                    className="px-5 py-4 hover:bg-slate-50/60 transition-colors border-b border-slate-100"
+                    className="px-5 py-4 hover:bg-[#F1F8FC]/60 transition-colors border-b border-[#E8F1F5]"
                   >
                     <div className="flex items-start justify-between mb-2">
 
@@ -281,9 +281,9 @@ const Scheduler = () => {
                           return meta ? (
                             <div
                               key={pl}
-                              className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 bg-slate-50"
+                              className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#E8F1F5] bg-[#F1F8FC]"
                             >
-                              <meta.icon className="size-4 text-slate-600" />
+                              <meta.icon className="size-4 text-[#5F6B78]" />
                             </div>
                           ) : null;
                         })}
@@ -293,12 +293,12 @@ const Scheduler = () => {
                       <div className="flex items-center gap-2">
 
                         {post.mediaType && (
-                          <span className="text-xs bg-slate-100 text-slate-600 border border-slate-200 px-1.5 py-0.5 rounded-md font-semibold capitalize">
+                          <span className="text-xs bg-[#F1F8FC] text-[#5F6B78] border border-[#E8F1F5] px-1.5 py-0.5 rounded-md font-semibold capitalize">
                             {post.mediaType}
                           </span>
                         )}
 
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-[#7D8894]">
                           {new Date(post.scheduledFor).toLocaleString()}
                         </span>
 
@@ -306,7 +306,7 @@ const Scheduler = () => {
 
                     </div>
 
-                    <p className="mt-4 line-clamp-2 text-sm leading-6 text-slate-700">
+                    <p className="mt-4 line-clamp-2 text-sm leading-6 text-[#5F6B78]">
                       {post.content}
                     </p>
                   </div>
@@ -316,31 +316,31 @@ const Scheduler = () => {
           </div>
 
           {/* Published post */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-[#E8F1F5] bg-white shadow-sm">
             {/* Header */}
-            <div className="flex items-center gap-2.5 border-b border-slate-200 px-5 py-4">
-              <SendIcon className="size-4 text-zinc-500" />
+            <div className="flex items-center gap-2.5 border-b border-[#E8F1F5] px-5 py-4">
+              <SendIcon className="size-4 text-[#7D8894]" />
 
-              <h3 className="text-sm text-slate-900">
+              <h3 className="text-sm text-[#102E46]">
                 Published
               </h3>
 
-              <span className="ml-auto rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-bold text-zinc-700">
+              <span className="ml-auto rounded-full bg-[#EAF8FD] px-2 py-0.5 text-xs font-bold text-[#2D4B61]">
                 {published.length}
               </span>
             </div>
 
             {/* Body */}
-            <div className="max-h-72 overflow-y-auto divide-y divide-slate-50">
+            <div className="max-h-72 overflow-y-auto divide-y divide-[#E8F1F5]">
               {published.length === 0 ? (
-                <div className="py-10 text-center text-sm text-slate-400">
+                <div className="py-10 text-center text-sm text-[#7D8894]">
                   No published posts yet.
                 </div>
               ) : (
                 published.map((post) => (
                   <div
                     key={post._id}
-                    className="px-5 py-4 transition-colors hover:bg-slate-50/60 border-b border-slate-100"
+                    className="px-5 py-4 transition-colors hover:bg-[#F1F8FC]/60 border-b border-[#E8F1F5]"
                   >
                     <div className="mb-2 flex items-start justify-between">
 
@@ -352,9 +352,9 @@ const Scheduler = () => {
                           return meta ? (
                             <div
                               key={pl}
-                              className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 bg-slate-50"
+                              className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#E8F1F5] bg-[#F1F8FC]"
                             >
-                              <meta.icon className="size-4 text-slate-600" />
+                              <meta.icon className="size-4 text-[#5F6B78]" />
                             </div>
                           ) : null;
                         })}
@@ -364,12 +364,12 @@ const Scheduler = () => {
                       <div className="flex items-center gap-2">
 
                         {post.mediaType && (
-                          <span className="rounded-md border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-xs font-semibold capitalize text-slate-600">
+                          <span className="rounded-md border border-[#E8F1F5] bg-[#F1F8FC] px-1.5 py-0.5 text-xs font-semibold capitalize text-[#5F6B78]">
                             {post.mediaType}
                           </span>
                         )}
 
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-[#7D8894]">
                           {new Date(post.updatedAt).toLocaleString()}
                         </span>
 
@@ -381,7 +381,7 @@ const Scheduler = () => {
                     </div>
 
                     {/* Content */}
-                    <p className="line-clamp-2 text-sm leading-6 text-slate-700">
+                    <p className="line-clamp-2 text-sm leading-6 text-[#5F6B78]">
                       {post.content}
                     </p>
                   </div>

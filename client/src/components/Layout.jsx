@@ -5,7 +5,7 @@ import { MenuIcon } from "lucide-react";
 
 const PAGE_TITLES = {
     "/dashboard": "Dashboard",
-    "/accounts": " Social Accounts",
+    "/accounts": "Social Accounts",
     "/ai-composer": "AI Composer",
     "/scheduler": "Post Scheduler",
 };
@@ -18,10 +18,10 @@ const Layout = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <div className="flex h-screen bg-slate-50">
+        <div className="flex h-screen bg-[#F1F8FC]">
             {isMobileMenuOpen && (
                 <div
-                    className="fixed inset-0 z-40 bg-slate-900/50 md:hidden"
+                    className="fixed inset-0 z-40 bg-[#102E46]/40 md:hidden"
                     onClick={() => setIsMobileMenuOpen(false)}
                 />
             )}
@@ -32,20 +32,20 @@ const Layout = () => {
             />
 
             <div className="flex flex-1 flex-col overflow-hidden">
-                <header className="flex h-16 items-center gap-4 border-b border-slate-200 bg-white px-4 md:px-8">
+                <header className="flex h-16 items-center gap-4 border-b border-[#E8F1F5] bg-white px-4 md:px-8">
                     <button
-                        className="p-2 -ml-2 text-slate-500 md:hidden"
+                        className="p-2 -ml-2 text-[#5F6B78] md:hidden"
                         onClick={() => setIsMobileMenuOpen(true)}
                     >
                         <MenuIcon className="size-6" />
                     </button>
 
                     <div>
-                        <h1 className="text-slate-900">
+                        <h1 className="text-[#102E46]">
                             {title}
                         </h1>
 
-                        <p className="hidden text-sm text-slate-400 sm:block">
+                        <p className="hidden text-sm text-[#7D8894] sm:block">
                             Manage and automate your social presence
                         </p>
                     </div>
